@@ -21,12 +21,17 @@ if ! test -d "$dir"; then
   echo "Debe ingresar la ruta de un directorio"
 fi
 
-contar=0
+# Cualquier archivo ejecutable
 
-for v in "$dir"/*; do
-  if test -f "$v" && test -x "$v"; then
-    contar=$((contar + 1))
-  fi
-done
+contar=$(ls -l "$dir" | grep ^...x | wc -l)
 
-echo "Hay $contar archivo con permisos de ejecución"
+echo "Hay $contar archivos (cualquier tipo)"
+
+echo ""
+
+# Solo archivos regulares ejecutables
+reg_contar=$(ls -l "$dir" | grep ^-..x | wc -l)
+
+echo "Hay $reg_contar archivos (regulares)"
+
+
